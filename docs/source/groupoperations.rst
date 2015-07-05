@@ -2,7 +2,7 @@ Symmetric Group Functionality
 =============================
 *SnFFT* is designed to take the Fourier transform of functions over |Sn|.  
 Although not strictly necessary to do this, having the basic functionality of the group can make testing and development much easier.  
-These functions are in the file `SnElement.jl <https://github.com/GDPlumb/SnFFT.jl/blob/master/src/SnElement.jl>`_.  
+These functions are in the file `Element.jl <https://github.com/GDPlumb/SnFFT.jl/blob/master/src/Element.jl>`_.  
 
 Group Operations
 ----------------
