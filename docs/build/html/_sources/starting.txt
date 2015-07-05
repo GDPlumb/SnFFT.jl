@@ -21,7 +21,7 @@ SnFFT can also be installed using Julia's pakage manager as follows:
 
 .. code-block:: julia
 
-    julia> Pkg.clone("git://github.com/GDPlumb/SnFFT.jl")
+    julia> Pkg.add("SnFFT")
     
 
 Set Up
