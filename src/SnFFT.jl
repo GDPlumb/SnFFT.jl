@@ -1,6 +1,5 @@
 module SnFFT
 
-<<<<<<< HEAD
 #load the files included
 include("Convolution.jl")
 include("Correlation.jl")
