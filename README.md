@@ -1,6 +1,5 @@
 # SnFFT
 
-<<<<<<< HEAD
 Dependencies
 ------------
 SnFFT is written in Julia, a a high-level, high-performance programming language designed for technical computing.  It can be downloaded here:
@@ -22,6 +21,4 @@ Acknowledgments
 This work was supported in part by NSF CCF 1320344, NSF CCF 1320755, a REU supplement to NSF RI 1116584 and the University of Wisconsin Graduate School
 
 
-=======
->>>>>>> c2921e6a62dd7f9c4ff629c01803d0b504b1f3fa
 [![Build Status](https://travis-ci.org/GDPlumb/SnFFT.jl.svg?branch=master)](https://travis-ci.org/GDPlumb/SnFFT.jl)
