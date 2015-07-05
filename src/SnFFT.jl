@@ -80,8 +80,4 @@ export
 
 end 
 
-=======
-# package code goes here
-
-end # module
->>>>>>> c2921e6a62dd7f9c4ff629c01803d0b504b1f3fa
+end
