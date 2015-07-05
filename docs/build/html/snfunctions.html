@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Functions over the Symmetric Group &mdash; SnFFT 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="SnFFT 0.0.1 documentation" href="index.html" />
+    <link rel="next" title="Young’s Orthogonal Representations" href="yor.html" />
+    <link rel="prev" title="Symmetric Group Functionality" href="groupoperations.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="yor.html" title="Young’s Orthogonal Representations"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="groupoperations.html" title="Symmetric Group Functionality"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">SnFFT 0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="functions-over-the-symmetric-group">
+<h1>Functions over the Symmetric Group<a class="headerlink" href="#functions-over-the-symmetric-group" title="Permalink to this headline">¶</a></h1>
+<div class="line-block">
+<div class="line">SnFFT represents a function over <strong>S</strong><sub>n</sub>  as an array of Float64 values.</div>
+<div class="line">Because this representation doesn&#8217;t explicitly store the permutation that corresponds to each value of the function, SnFFT has a set of standards that it uses to define the correspondence between indices of this array and the permutations.</div>
+<div class="line">These standards will be explained for each of the three types of fast Fourier transforms that SnFFT implements.</div>
+</div>
+<div class="section" id="dense-functions">
+<h2>Dense Functions<a class="headerlink" href="#dense-functions" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">A dense function over <strong>S</strong><sub>n</sub>  will have a length of n! because the dense fast Fourier transform doesn&#8217;t rely on any prior knowledge of the function.</div>
+<div class="line">The dense fast Fourier transform assumes that the value stored at index <em>i</em> is the value associated with the permutation that permutation_index() maps to <em>i</em>.</div>
+<div class="line">See example3() for more details.</div>
+</div>
+<dl class="function">
+<dt id="snf">
+<code class="descname">snf</code><span class="sig-paren">(</span><em>N</em>, <em>PA</em>, <em>VA</em><span class="sig-paren">)</span><a class="headerlink" href="#snf" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       N::Int</span>
+<span class="c">#       - the problem size</span>
+<span class="c">#       PA::Array{Array{Int, 1}, 1}</span>
+<span class="c">#       - PA[i] is a Permutation of N</span>
+<span class="c">#       VA::Array{Float64, 1}</span>
+<span class="c">#       - VA[i] is the Value associated with PA[i]</span>
+<span class="c"># Return Values:</span>
+<span class="c">#       SNF::Array{Float64, 1}</span>
+<span class="c">#       - SNF[i] is the value associated with the permutation that permutation_index() maps to i</span>
+<span class="c">#       - this is the format for the SNF parameter of sn_fft()</span>
+<span class="c"># Notes:</span>
+<span class="c">#       - any permutation of N not represented in PA will be assigned a value of zero</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="bandlimited-functions">
+<h2>Bandlimited Functions<a class="headerlink" href="#bandlimited-functions" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">A bandlimited function over <strong>S</strong><sub>n</sub>  that is invariant at <strong>S</strong><sub>n - k</sub> will have n!/(n - k)! blocks of identical values of length (n - k)! when it is represented in the format that the dense fast Fourier transform uses.</div>
+<div class="line">This representation both wastes space and makes the calculation of the fast Fourier transform much slower.</div>
+<div class="line">Consequently, SnFFT uses a representation of such a function that stores one value from each block.</div>
+<div class="line">The bandlimited fast Fourier transform assumes the the value stored at index <em>i</em> is the value associated with all of the permutations that permutation_index() maps to (i - 1) * (n - k)!  + 1 to i * (n - k)!.</div>
+<div class="line">See example7() for more details.</div>
+</div>
+<dl class="function">
+<dt id="snf_bl">
+<code class="descname">snf_bl</code><span class="sig-paren">(</span><em>N</em>, <em>K</em>, <em>PA</em>, <em>VA</em><span class="sig-paren">)</span><a class="headerlink" href="#snf_bl" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       N::Int</span>
+<span class="c">#       - the problem size</span>
+<span class="c">#       K::Int</span>
+<span class="c">#       - the problem is homogenous at N-K</span>
+<span class="c">#       PA::Array{Array{Int, 1}, 1}</span>
+<span class="c">#       - PA[i] is a Permutation of N</span>
+<span class="c">#       VA::Array{Float64, 1}</span>
+<span class="c">#       - VA[i] is the Value associated with PA[i]</span>
+<span class="c"># Return Values:</span>
+<span class="c">#       SNF::Array{Float64, 1}</span>
+<span class="c">#       - SNF[i] is the value associated with all of the permutations that permutation_index() maps to any value in the range ((i - 1) * factorial(N - K) + 1):(i * factorial(N - K))</span>
+<span class="c">#       - this is the format for the SNF parameter of sn_fft_bl()</span>
+<span class="c"># Notes:</span>
+<span class="c">#       - any homogenous coset that doesn&#39;t have a representative permutation in PA will be assigned a value of zero</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="sparse-functions">
+<h2>Sparse Functions<a class="headerlink" href="#sparse-functions" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">A sparse function over <strong>S</strong><sub>n</sub>  is represented by two components.</div>
+<div class="line">The first is a set of values and the second is a set of indices.</div>
+<div class="line">The sparse fast Fourier transform assumes the the value at index <em>i</em> is the value associated with the permutation that permutation_index() maps the index at index <em>i</em>.</div>
+<div class="line">See example5() for more details.</div>
+</div>
+<dl class="function">
+<dt id="snf_sp">
+<code class="descname">snf_sp</code><span class="sig-paren">(</span><em>N</em>, <em>PA</em>, <em>VA</em><span class="sig-paren">)</span><a class="headerlink" href="#snf_sp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       N::Int</span>
+<span class="c">#       - the problem size</span>
+<span class="c">#       PA::Array{Array{Int, 1}, 1}</span>
+<span class="c">#       - PA[i] is a Permutation of N</span>
+<span class="c">#       VA::Array{Float64, 1}</span>
+<span class="c">#       - VA[i] is the Value associated with PA[i]</span>
+<span class="c"># Return Values:</span>
+<span class="c">#       SNF::Array{Float64, 1}</span>
+<span class="c">#       - SNF[i] is the value associated with the permutation that permutation_index() maps to NZL[i]</span>
+<span class="c">#       - this is the format for the SNF parameter of sn_fft_sp()</span>
+<span class="c">#       NZL::Array{Int, 1}</span>
+<span class="c">#       - NZL must in increasing order</span>
+<span class="c">#       - this is the format for the NZL parameter of sn_fft_sp()</span>
+<span class="c"># Notes:</span>
+<span class="c">#       - the values in VA should be non-zero</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Functions over the Symmetric Group</a><ul>
+<li><a class="reference internal" href="#dense-functions">Dense Functions</a></li>
+<li><a class="reference internal" href="#bandlimited-functions">Bandlimited Functions</a></li>
+<li><a class="reference internal" href="#sparse-functions">Sparse Functions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="groupoperations.html"
+                        title="previous chapter">Symmetric Group Functionality</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="yor.html"
+                        title="next chapter">Young&#8217;s Orthogonal Representations</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/snfunctions.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="yor.html" title="Young’s Orthogonal Representations"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="groupoperations.html" title="Symmetric Group Functionality"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">SnFFT 0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Gregory Plumb.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

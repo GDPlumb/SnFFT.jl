@@ -1,0 +1,391 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Symmetric Group Functionality &mdash; SnFFT 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="SnFFT 0.0.1 documentation" href="index.html" />
+    <link rel="next" title="Functions over the Symmetric Group" href="snfunctions.html" />
+    <link rel="prev" title="Examples" href="examples.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="snfunctions.html" title="Functions over the Symmetric Group"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="examples.html" title="Examples"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">SnFFT 0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="symmetric-group-functionality">
+<h1>Symmetric Group Functionality<a class="headerlink" href="#symmetric-group-functionality" title="Permalink to this headline">¶</a></h1>
+<p><em>SnFFT</em> is designed to take the Fourier transform of functions over <strong>S</strong><sub>n</sub> .
+Although not strictly necessary to do this, having the basic functionality of the group can make testing and development much easier.
+These functions are in the file <a class="reference external" href="https://github.com/GDPlumb/SnFFT.jl/blob/master/src/SnElement.jl">SnElement.jl</a>.</p>
+<div class="section" id="group-operations">
+<h2>Group Operations<a class="headerlink" href="#group-operations" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="sn_multiply">
+<code class="descname">sn_multiply</code><span class="sig-paren">(</span><em>P1</em>, <em>P2</em><span class="sig-paren">)</span><a class="headerlink" href="#sn_multiply" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       P1::Array{Int, 1}</span>
+<span class="c">#       - the first permutation</span>
+<span class="c">#       P2::Array{Int, 1}</span>
+<span class="c">#       - the second permutation</span>
+<span class="c"># Return Values:</span>
+<span class="c">#       Prod::Array{Int, 1}</span>
+<span class="c">#       - the permutation that is P1 * P2</span>
+<span class="c"># Notes:</span>
+<span class="c">#       - P1 and P2 must be permutations of the same size</span>
+</pre></div>
+</div>
+<dl class="function">
+<dt id="sn_inverse">
+<code class="descname">sn_inverse</code><span class="sig-paren">(</span><em>P</em><span class="sig-paren">)</span><a class="headerlink" href="#sn_inverse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       P::Array{Int, 1}</span>
+<span class="c">#       - a permutation</span>
+<span class="c"># Return Values:</span>
+<span class="c">#       Inv::Array{Int, 1}</span>
+<span class="c">#       - the permutation that is the inverse of P</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="group-element-constructors">
+<h2>Group Element Constructors<a class="headerlink" href="#group-element-constructors" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="sn_p">
+<code class="descname">sn_p</code><span class="sig-paren">(</span><em>N</em><span class="sig-paren">)</span><a class="headerlink" href="#sn_p" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       N::Int</span>
+<span class="c">#       - the size of the permutation</span>
+<span class="c"># Return Values:</span>
+<span class="c">#       P::Array{Int, 1}</span>
+<span class="c">#       - a random permutation of N</span>
+</pre></div>
+</div>
+<dl class="function">
+<dt id="sn_cc">
+<code class="descname">sn_cc</code><span class="sig-paren">(</span><em>N</em>, <em>LB</em>, <em>UB</em><span class="sig-paren">)</span><a class="headerlink" href="#sn_cc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       N::Int</span>
+<span class="c">#       - the size of the permutation</span>
+<span class="c">#       LB::Int</span>
+<span class="c">#       - the first position that is reassigned</span>
+<span class="c">#       UB::Int</span>
+<span class="c">#       - the last position that is reassigned</span>
+<span class="c"># Return Values:</span>
+<span class="c">#       CC::Array{Int, 1}</span>
+<span class="c">#       - the permutation of N that is the contiguous cycle [[LB, UB]]</span>
+<span class="c">#       - this is the permutation that sends LB to LB + 1, LB + 1 to LB + 2, ... ,  UB - 1 to UB, and UB to LB</span>
+<span class="c"># Notes</span>
+<span class="c">#       - 1 &lt;= LB &lt;= UB &lt;= N</span>
+</pre></div>
+</div>
+<dl class="function">
+<dt>
+<code class="descname">sn_cc</code><span class="sig-paren">(</span><em>N</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       N::Int</span>
+<span class="c">#       - the size of the permutation</span>
+<span class="c"># Return Values:</span>
+<span class="c">#       CC::Array{Int, 1}</span>
+<span class="c">#       - a random contiguous cycle of N</span>
+</pre></div>
+</div>
+<dl class="function">
+<dt id="sn_at">
+<code class="descname">sn_at</code><span class="sig-paren">(</span><em>N</em>, <em>K</em><span class="sig-paren">)</span><a class="headerlink" href="#sn_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       N::Int</span>
+<span class="c">#       - the size of the permutation</span>
+<span class="c">#       K::Int</span>
+<span class="c">#       - the position that is being reassigned</span>
+<span class="c"># Return Values:</span>
+<span class="c">#       AT::Array{Int, 1}</span>
+<span class="c">#       - the permutation of N that is the adjacent transposition (K, K+1)</span>
+<span class="c">#       - this is the permutation that sends K to K + 1 and K + 1 to K</span>
+<span class="c"># Notes:</span>
+<span class="c">#       - 1 &lt;= K &lt; N</span>
+</pre></div>
+</div>
+<dl class="function">
+<dt>
+<code class="descname">sn_at</code><span class="sig-paren">(</span><em>N</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       N::Int</span>
+<span class="c">#       - the size of the permutation</span>
+<span class="c"># Return Values:</span>
+<span class="c">#       AT::Array{Int, 1}</span>
+<span class="c">#       - a random adjacent transposition of N</span>
+</pre></div>
+</div>
+<dl class="function">
+<dt id="sn_t">
+<code class="descname">sn_t</code><span class="sig-paren">(</span><em>N</em>, <em>I</em>, <em>J</em><span class="sig-paren">)</span><a class="headerlink" href="#sn_t" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       N::Int</span>
+<span class="c">#       - the size of the permutation</span>
+<span class="c">#       I::Int</span>
+<span class="c">#       - the first postition that is being reassigned</span>
+<span class="c">#       J::Int</span>
+<span class="c">#       - the second position that is being reassigned</span>
+<span class="c"># Return Values:</span>
+<span class="c">#       Tr::Array{Int, 1}</span>
+<span class="c">#       - the permutation of N that is the transposition (I, J)</span>
+<span class="c">#       - this is the permutation that sends I to J and J to I</span>
+<span class="c"># Notes:</span>
+<span class="c">#       - 1 &lt;= I &lt;= N</span>
+<span class="c">#       - 1 &lt;= J &lt;= N</span>
+</pre></div>
+</div>
+<dl class="function">
+<dt>
+<code class="descname">sn_t</code><span class="sig-paren">(</span><em>N</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       N::Int</span>
+<span class="c">#       - the size of the permutation</span>
+<span class="c"># Return Values:</span>
+<span class="c">#       Tr::Array{Int, 1}</span>
+<span class="c">#       - a random transposition of N</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="factorizations-and-related-operations-on-the-left-coset-tree">
+<h2>Factorizations and Related Operations on the Left-Coset Tree<a class="headerlink" href="#factorizations-and-related-operations-on-the-left-coset-tree" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="permutation_ccf">
+<code class="descname">permutation_ccf</code><span class="sig-paren">(</span><em>P</em><span class="sig-paren">)</span><a class="headerlink" href="#permutation_ccf" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       P::Array{Int, 1}</span>
+<span class="c">#       - a permutation</span>
+<span class="c"># Return Values:</span>
+<span class="c">#       CCF::Array{Int, 1}</span>
+<span class="c">#       - the Contiguous Cycle Factoriztion of P</span>
+<span class="c">#       - P = product for i = 1:(N - 1) of sn_cc(N, CCF[i], N + 1 - i)</span>
+</pre></div>
+</div>
+<dl class="function">
+<dt id="ccf_index">
+<code class="descname">ccf_index</code><span class="sig-paren">(</span><em>CCF</em><span class="sig-paren">)</span><a class="headerlink" href="#ccf_index" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       CCF::Array{Int, 1}</span>
+<span class="c">#       - a contiguous cycle factorization of some permutation</span>
+<span class="c"># Return Values:</span>
+<span class="c">#       Index::Int</span>
+<span class="c">#       - the unique index that the permutation corresponding to CCF maps to</span>
+</pre></div>
+</div>
+<dl class="function">
+<dt id="permutation_index">
+<code class="descname">permutation_index</code><span class="sig-paren">(</span><em>P</em><span class="sig-paren">)</span><a class="headerlink" href="#permutation_index" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       P::Array{Int, 1}</span>
+<span class="c">#       - a permutation</span>
+<span class="c"># Return Values:</span>
+<span class="c">#       Index::Int</span>
+<span class="c">#       - the unique index that P maps to</span>
+</pre></div>
+</div>
+<dl class="function">
+<dt id="index_ccf">
+<code class="descname">index_ccf</code><span class="sig-paren">(</span><em>N</em>, <em>Index</em><span class="sig-paren">)</span><a class="headerlink" href="#index_ccf" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       N::Int</span>
+<span class="c">#       - the size of the permutation that maps to Index</span>
+<span class="c">#       Index::Int</span>
+<span class="c">#       - the index of some permutation of N</span>
+<span class="c"># Return Values:</span>
+<span class="c">#       CCF::Array{Int, 1}</span>
+<span class="c">#       - the contiguous cycle factorization that corresponds to the permutation that maps to Index</span>
+</pre></div>
+</div>
+<dl class="function">
+<dt id="ccf_permutation">
+<code class="descname">ccf_permutation</code><span class="sig-paren">(</span><em>N::Int</em>, <em>Index::Int</em><span class="sig-paren">)</span><a class="headerlink" href="#ccf_permutation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       CCF::Array{Int, 1}</span>
+<span class="c">#       - a contiguous cycle factorization of some permutation</span>
+<span class="c"># Return Values:</span>
+<span class="c">#       P::Array{Int, 1}</span>
+<span class="c">#       - the permutation that corresponds to CCF</span>
+</pre></div>
+</div>
+<dl class="function">
+<dt id="index_permutation">
+<code class="descname">index_permutation</code><span class="sig-paren">(</span><em>N</em>, <em>Index</em><span class="sig-paren">)</span><a class="headerlink" href="#index_permutation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       N::Int</span>
+<span class="c">#       - the size of the permutation that maps to Index</span>
+<span class="c">#       Index::Int</span>
+<span class="c">#       - the index of some permutation of N</span>
+<span class="c"># Return Values:</span>
+<span class="c">#       P::Array{Int, 1}</span>
+<span class="c">#       - the permutation of N that maps to Index</span>
+</pre></div>
+</div>
+<dl class="function">
+<dt id="permutation_atf">
+<code class="descname">permutation_atf</code><span class="sig-paren">(</span><em>P</em><span class="sig-paren">)</span><a class="headerlink" href="#permutation_atf" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       P::Array{Int, 1}</span>
+<span class="c">#       - a permutation</span>
+<span class="c"># Return Values</span>
+<span class="c">#       ATF::Array{Int, 1}</span>
+<span class="c">#       - the adjacent transposition factorization of P</span>
+<span class="c">#       - P = product for i = 1:length(ATF) of sn_at(N, ATF[i])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="young-s-orthogonal-representation-of-a-permutation">
+<h2>Young&#8217;s Orthogonal Representation of a Permutation<a class="headerlink" href="#young-s-orthogonal-representation-of-a-permutation" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="yor_permutation">
+<code class="descname">yor_permutation</code><span class="sig-paren">(</span><em>P</em>, <em>YORnp</em><span class="sig-paren">)</span><a class="headerlink" href="#yor_permutation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       P::Array{Int, 1}</span>
+<span class="c">#       - a permutation</span>
+<span class="c">#       YORnp::Array{SparseMatrixCSC, 1}</span>
+<span class="c">#       - YORnp[i] is Young&#39;s Orthogonal Representation for the adjacent transposition (i, i + 1) corresponding to the pth partition of n</span>
+<span class="c"># Return Values:</span>
+<span class="c">#       RM::Array{Float64, 2}</span>
+<span class="c">#       - Young&#39;s Orthogonal Representation of P corresponding to the pth partition of n</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Symmetric Group Functionality</a><ul>
+<li><a class="reference internal" href="#group-operations">Group Operations</a></li>
+<li><a class="reference internal" href="#group-element-constructors">Group Element Constructors</a></li>
+<li><a class="reference internal" href="#factorizations-and-related-operations-on-the-left-coset-tree">Factorizations and Related Operations on the Left-Coset Tree</a></li>
+<li><a class="reference internal" href="#young-s-orthogonal-representation-of-a-permutation">Young&#8217;s Orthogonal Representation of a Permutation</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="examples.html"
+                        title="previous chapter">Examples</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="snfunctions.html"
+                        title="next chapter">Functions over the Symmetric Group</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/groupoperations.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="snfunctions.html" title="Functions over the Symmetric Group"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="examples.html" title="Examples"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">SnFFT 0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Gregory Plumb.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

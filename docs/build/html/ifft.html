@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Inverse Fast Fourier Transform &mdash; SnFFT 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="SnFFT 0.0.1 documentation" href="index.html" />
+    <link rel="next" title="Convolution and Correlation" href="corcon.html" />
+    <link rel="prev" title="Fast Fourier Transforms" href="fft.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="corcon.html" title="Convolution and Correlation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="fft.html" title="Fast Fourier Transforms"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">SnFFT 0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="inverse-fast-fourier-transform">
+<h1>Inverse Fast Fourier Transform<a class="headerlink" href="#inverse-fast-fourier-transform" title="Permalink to this headline">¶</a></h1>
+<p><em>SnFFT</em> support three types of inverse fast Fourier transforms.
+The dense inverse fast Fourier transform can take the inverse of the output of either the sparse or dense fast Fourier transform.
+The bandlimited inverse fast Fourier transform can only take the inverse of the output of the bandlimited fast Fourier transform, but benefits greatly from the restriction.
+The partial inverse fast Fourier transform can take the inverse of the output of either the sparse or dense fast Fourier transform.</p>
+<div class="section" id="dense-inverse-fast-fourier-transform">
+<h2>Dense Inverse Fast Fourier Transform<a class="headerlink" href="#dense-inverse-fast-fourier-transform" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="sn_ifft">
+<code class="descname">sn_ifft</code><span class="sig-paren">(</span><em>N</em>, <em>FFT</em>, <em>YOR</em>, <em>PT</em><span class="sig-paren">)</span><a class="headerlink" href="#sn_ifft" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       N::Int</span>
+<span class="c">#       - the problem size</span>
+<span class="c">#       FFT::Array{Array{Float64, 2}, 1}</span>
+<span class="c">#       - a Fast Fourier Transform of size N</span>
+<span class="c">#       - should be the output of sn_fft() or sn_fft_sp()</span>
+<span class="c">#       YOR::Array{Array{Array{SparseMatrixCSC, 1}, 1}, 1}</span>
+<span class="c">#       - output1 from yor()</span>
+<span class="c">#       PT::Array{Array{Array{Int, 1}, 1}, 1}</span>
+<span class="c">#       - output2 from yor()</span>
+<span class="c"># Return Values:</span>
+<span class="c">#       SNF::Array{Float64, 1}</span>
+<span class="c">#       - the function over Sn that corresponds to FFT</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>FFT</strong> is the output of sn_ftt() or sn_fft_sp()</li>
+<li><strong>YOR</strong> and <strong>PT</strong> are the outputs of yor(<strong>N</strong>)</li>
+<li>See the code for example4() for an example of the complete process to compute a dense inverse fast Fourier transform</li>
+</ul>
+</div>
+<div class="section" id="bandlimited-inverse-fast-fourier-transform">
+<h2>Bandlimited Inverse Fast Fourier Transform<a class="headerlink" href="#bandlimited-inverse-fast-fourier-transform" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="sn_ifft_bl">
+<code class="descname">sn_ifft_bl</code><span class="sig-paren">(</span><em>N</em>, <em>K</em>, <em>FFT</em>, <em>YOR</em>, <em>PT</em>, <em>ZFI</em><span class="sig-paren">)</span><a class="headerlink" href="#sn_ifft_bl" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       N::Int</span>
+<span class="c">#       - the problem size</span>
+<span class="c">#       K::Int</span>
+<span class="c">#       - the problem is homogenous at N-K</span>
+<span class="c">#       FFT::Array{Array{Float64, 2}, 1}</span>
+<span class="c">#       - a Fast Fourier Transform of size N</span>
+<span class="c">#       - should be the output of sn_fft_bl()</span>
+<span class="c">#       YOR::Array{Array{Array{SparseMatrixCSC, 1}, 1}, 1}</span>
+<span class="c">#       - output1 from yor_bl()</span>
+<span class="c">#       PT::Array{Array{Array{Int, 1}, 1}, 1}</span>
+<span class="c">#       - output2 from yor_bl()</span>
+<span class="c">#       ZFI::Array{Int, 1}</span>
+<span class="c">#       - output3 from yor_bl()</span>
+<span class="c"># Return Values:</span>
+<span class="c">#       SNF::Array{Float64, 1}</span>
+<span class="c">#       - the bandlimited function over Sn that corresponds to FFT</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>FFT</strong> is the output of sn_fft_bl()</li>
+<li><strong>YOR</strong>, <strong>PT</strong>, and <strong>ZFI</strong> are the outputs of yor_bl(<strong>N</strong>, <strong>K</strong>)</li>
+<li>See the code for example7() for an example of the complete process to compute a bandlimited inverse fast Fourier transform</li>
+</ul>
+</div>
+<div class="section" id="partial-inverse-fast-fourier-transform">
+<h2>Partial Inverse Fast Fourier Transform<a class="headerlink" href="#partial-inverse-fast-fourier-transform" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="sn_ifft_p">
+<code class="descname">sn_ifft_p</code><span class="sig-paren">(</span><em>N</em>, <em>M</em>, <em>FFT</em>, <em>YOR</em>, <em>PT</em><span class="sig-paren">)</span><a class="headerlink" href="#sn_ifft_p" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       N::Int</span>
+<span class="c">#       - the problem size</span>
+<span class="c">#       M::Int</span>
+<span class="c">#       - the number of the top components of FFT to use</span>
+<span class="c">#       FFT::Array{Array{Float64, 2}, 1}</span>
+<span class="c">#       - a Fast Fourier Transform of size N</span>
+<span class="c">#       - should be the output of sn_fft() or sn_fft_sp()</span>
+<span class="c">#       YOR::Array{Array{Array{SparseMatrixCSC, 1}, 1}, 1}</span>
+<span class="c">#       - output1 from yor()</span>
+<span class="c">#       PT::Array{Array{Array{Int, 1}, 1}, 1}</span>
+<span class="c">#       - output2 from yor()</span>
+<span class="c"># Return Values:</span>
+<span class="c">#       SNF::Array{Float64, 1}</span>
+<span class="c">#       - the function over Sn that corresponds to FFT that has been smoothed to only use the top M componenets</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>FFT</strong> is the output of sn_ftt() or sn_fft_sp()</li>
+<li><strong>YOR</strong> and <strong>PT</strong> are the outputs of yor(<strong>N</strong>)</li>
+<li>See the code for example8() for an example of the complete process to compute a partial inverse fast Fourier transform</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Inverse Fast Fourier Transform</a><ul>
+<li><a class="reference internal" href="#dense-inverse-fast-fourier-transform">Dense Inverse Fast Fourier Transform</a></li>
+<li><a class="reference internal" href="#bandlimited-inverse-fast-fourier-transform">Bandlimited Inverse Fast Fourier Transform</a></li>
+<li><a class="reference internal" href="#partial-inverse-fast-fourier-transform">Partial Inverse Fast Fourier Transform</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="fft.html"
+                        title="previous chapter">Fast Fourier Transforms</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="corcon.html"
+                        title="next chapter">Convolution and Correlation</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/ifft.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="corcon.html" title="Convolution and Correlation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="fft.html" title="Fast Fourier Transforms"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">SnFFT 0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Gregory Plumb.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

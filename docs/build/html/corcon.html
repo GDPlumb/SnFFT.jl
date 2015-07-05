@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Convolution and Correlation &mdash; SnFFT 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="SnFFT 0.0.1 documentation" href="index.html" />
+    <link rel="next" title="Miscellaneous Functions" href="miscellaneous.html" />
+    <link rel="prev" title="SnFFTInverse Fast Fourier Transform" href="ifft.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="miscellaneous.html" title="Miscellaneous Functions"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ifft.html" title="SnFFTInverse Fast Fourier Transform"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">SnFFT 0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="convolution-and-correlation">
+<h1>Convolution and Correlation<a class="headerlink" href="#convolution-and-correlation" title="Permalink to this headline">¶</a></h1>
+<p><em>SnFFT</em> implements two functions to help analyze the Fourier transform of functions over <strong>S</strong><sub>n</sub> .
+They are correlation and convolution.
+It is important to keep track of the degree of bandlimitedness of the input Fourier transforms because the result will have the higer degree of bandlimitedness.</p>
+<dl class="function">
+<dt id="sn_convoluation">
+<code class="descname">sn_convoluation</code><span class="sig-paren">(</span><em>FFT1</em>, <em>FFT2</em><span class="sig-paren">)</span><a class="headerlink" href="#sn_convoluation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       FFT1::Array{Array{Float64, 2}, 1}</span>
+<span class="c">#       - the first Fourier transform</span>
+<span class="c">#       FFT2::Array{Array{Float64, 2}, 1}</span>
+<span class="c">#       - the second Fourier transform</span>
+<span class="c"># Return Values:</span>
+<span class="c">#       Convolution::Array{Array{Float64, 2}, 1}</span>
+<span class="c">#       - the convolution of FFT1 and FFT2</span>
+<span class="c"># Notes:</span>
+<span class="c">#       - FFT1 and FFT2 have to be Fourier transforms of functions over the same Sn</span>
+<span class="c">#       - However, the don&#39;t have to have the same degree of bandlimitedness</span>
+</pre></div>
+</div>
+<dl class="function">
+<dt id="sn_correlation">
+<code class="descname">sn_correlation</code><span class="sig-paren">(</span><em>FFT1</em>, <em>FFT2</em><span class="sig-paren">)</span><a class="headerlink" href="#sn_correlation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       FFT1::Array{Array{Float64, 2}, 1}</span>
+<span class="c">#       - the first Fourier transform</span>
+<span class="c">#       FFT2::Array{Array{Float64, 2}, 1}</span>
+<span class="c">#       - the second Fourier transform</span>
+<span class="c"># Return Values:</span>
+<span class="c">#       Correlation::Array{Array{Float64, 2}, 1}</span>
+<span class="c">#       - the correlation of FFT1 and FFT2</span>
+<span class="c"># Notes:</span>
+<span class="c">#       - FFT1 and FFT2 have to be Fourier transforms of functions over the same Sn</span>
+<span class="c">#       - However, the don&#39;t have to have the same degree of bandlimitedness</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="ifft.html"
+                        title="previous chapter">SnFFTInverse Fast Fourier Transform</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="miscellaneous.html"
+                        title="next chapter">Miscellaneous Functions</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/corcon.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="miscellaneous.html" title="Miscellaneous Functions"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ifft.html" title="SnFFTInverse Fast Fourier Transform"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">SnFFT 0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Gregory Plumb.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

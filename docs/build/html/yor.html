@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Young’s Orthogonal Representations &mdash; SnFFT 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="SnFFT 0.0.1 documentation" href="index.html" />
+    <link rel="next" title="Fast Fourier Transforms" href="fft.html" />
+    <link rel="prev" title="Functions over the Symmetric Group" href="snfunctions.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="fft.html" title="Fast Fourier Transforms"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="snfunctions.html" title="Functions over the Symmetric Group"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">SnFFT 0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="young-s-orthogonal-representations">
+<h1>Young&#8217;s Orthogonal Representations<a class="headerlink" href="#young-s-orthogonal-representations" title="Permalink to this headline">¶</a></h1>
+<p><em>SnFFT</em> uses Young&#8217;s Orthogonal Representations (<strong>YOR</strong>) to calculate the fast Fourier transform of a function over <strong>S</strong><sub>n</sub> .
+In addition to Young&#8217;s Orthogonal Representations, the fast Fourier transform needs to know the structure that determines the decomposition of Young&#8217;s Orthogonal Representations (<strong>PT</strong>).
+Additionally, the bandlimited fast Fourier transform needs some information about whether or not a component is a zero-frequency component (<strong>ZFI</strong>).
+To make computing multiple fast Fourier transforms more efficient, <strong>YOR</strong>, <strong>PT</strong>, and <strong>ZFI</strong> are computed before calling the fast Fourier transform.
+They only need to be computed once because they don&#8217;t depend on the specific values of the function over <strong>S</strong><sub>n</sub> .</p>
+<div class="section" id="dense-and-sparse-functions">
+<h2>Dense and Sparse Functions<a class="headerlink" href="#dense-and-sparse-functions" title="Permalink to this headline">¶</a></h2>
+<p>Before computing a dense or sparse fast Fourier transform, construct the necessary information with:</p>
+<div class="highlight-julia"><div class="highlight"><pre><span class="n">julia</span><span class="o">&gt;</span> <span class="n">RA</span><span class="p">,</span> <span class="n">PT</span> <span class="o">=</span> <span class="n">yor</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="function">
+<dt id="yor">
+<code class="descname">yor</code><span class="sig-paren">(</span><em>N</em><span class="sig-paren">)</span><a class="headerlink" href="#yor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters</span>
+<span class="c">#       N::Int</span>
+<span class="c">#       - the problem size</span>
+<span class="c"># Return Values</span>
+<span class="c">#       YOR::Array{Array{Array{SparseMatrixCSC, 1}, 1}, 1} (Young&#39;s Orthogonal Representations)</span>
+<span class="c">#       - YOR[n][p][k] is Young&#39;s Orthogonal Representation for the Adjacent Transposition (K, K + 1) for the pth Partition of n</span>
+<span class="c">#       PT::Array{Array{Array{Int, 1}, 1}, 1} (Partition Tree)</span>
+<span class="c">#       - for each value, i, in PT[n][p], P[n][p] decomposes into P[n-1][i]</span>
+<span class="c">#       - length(PT[1]) = 0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="bandlimited-functions">
+<h2>Bandlimited Functions<a class="headerlink" href="#bandlimited-functions" title="Permalink to this headline">¶</a></h2>
+<p>Before computing a bandlimited fast Fourier transform, construct the necessary information with:</p>
+<div class="highlight-julia"><div class="highlight"><pre><span class="n">julia</span><span class="o">&gt;</span> <span class="n">RA</span><span class="p">,</span> <span class="n">PT</span><span class="p">,</span> <span class="n">ZFI</span> <span class="o">=</span> <span class="n">yor_bl</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="function">
+<dt id="yor_bl">
+<code class="descname">yor_bl</code><span class="sig-paren">(</span><em>N</em>, <em>K</em><span class="sig-paren">)</span><a class="headerlink" href="#yor_bl" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       N::Int</span>
+<span class="c">#       - the problem size</span>
+<span class="c">#       K::Int</span>
+<span class="c">#       - the problem is homogenous at N-K</span>
+<span class="c"># Return Values</span>
+<span class="c">#       YOR::Array{Array{Array{SparseMatrixCSC, 1}, 1}, 1} (Young&#39;s Orthogonal Representations)</span>
+<span class="c">#       - YOR[n][p][k] is Young&#39;s Orthogonal Representation for the Adjacent Transposition (K, K + 1) for the pth Partition of n that is needed for the bandlimited functionality</span>
+<span class="c">#       - length(YOR[n]) = 0 for n = 1:(N - K - 1)</span>
+<span class="c">#       - if p &lt; ZFI[n], length(YOR[n][p] = 1) and YOR[n][p][1,1] contains the dimension of the full Young&#39;s Orthogonal Representation</span>
+<span class="c">#       PT::Array{Array{Array{Int, 1}, 1}, 1} (Partition Tree)</span>
+<span class="c">#       - for each value, i, in PT[n][j], P[n][j] decomposes into P[n-1][i]</span>
+<span class="c">#       - length(PT[n]) = 0 for n = 1:(N - K)</span>
+<span class="c">#       - length(PT[n][p]) = 0 for p &lt;= ZFI[n]</span>
+<span class="c">#       ZFI::Array{Int, 1} (Zero Frequency Information)</span>
+<span class="c">#       - ZFI[n] = k if, for p&lt;=k, P[n][p] is a zero frequency partition</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Young&#8217;s Orthogonal Representations</a><ul>
+<li><a class="reference internal" href="#dense-and-sparse-functions">Dense and Sparse Functions</a></li>
+<li><a class="reference internal" href="#bandlimited-functions">Bandlimited Functions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="snfunctions.html"
+                        title="previous chapter">Functions over the Symmetric Group</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="fft.html"
+                        title="next chapter">Fast Fourier Transforms</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/yor.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="fft.html" title="Fast Fourier Transforms"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="snfunctions.html" title="Functions over the Symmetric Group"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">SnFFT 0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Gregory Plumb.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

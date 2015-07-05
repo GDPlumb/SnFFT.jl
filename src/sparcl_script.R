@@ -1,0 +1,7 @@
+library(sparcl)
+x <- read.csv(file="input-x.csv",head=FALSE,sep=",")
+x <- as.matrix(x)
+perm.out <- HierarchicalSparseCluster.permute(x, wbounds=c(1.5,2:6),nperms=5)
+sparsehc <- HierarchicalSparseCluster(dists=perm.out$dists,wbound=perm.out$bestw, method="complete")
+plot(sparsehc$hc)
+detach("package:sparcl")

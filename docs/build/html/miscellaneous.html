@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Miscellaneous Functions &mdash; SnFFT 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="SnFFT 0.0.1 documentation" href="index.html" />
+    <link rel="next" title="Machine Learning Applications" href="mlapplications.html" />
+    <link rel="prev" title="Convolution and Correlation" href="corcon.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="mlapplications.html" title="Machine Learning Applications"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="corcon.html" title="Convolution and Correlation"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">SnFFT 0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="miscellaneous-functions">
+<h1>Miscellaneous Functions<a class="headerlink" href="#miscellaneous-functions" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="partition-construction">
+<h2>Partition Construction<a class="headerlink" href="#partition-construction" title="Permalink to this headline">¶</a></h2>
+<p>Although perhaps not computationally useful, <em>SnFFT</em> does export the function to construct the set of paritions of 1:N.
+Generally, this is useful for giving the output of other code easier to interpret.</p>
+<dl class="function">
+<dt id="partitions">
+<code class="descname">partitions</code><span class="sig-paren">(</span><em>N</em><span class="sig-paren">)</span><a class="headerlink" href="#partitions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       N::Int</span>
+<span class="c">#       - the problem size</span>
+<span class="c"># Return Values:</span>
+<span class="c">#       P::Array{Array{Array{Int, 1}, 1}, 1} (Partitions)</span>
+<span class="c">#       - P[n][p] contains the pth Partition of n</span>
+<span class="c">#       WI::Array{Int, 2} (Width Information)</span>
+<span class="c">#       - WI[n, w] contains the number of Paritions of n whose first element is less than or equal to w</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="preference-matrices">
+<h2>Preference Matrices<a class="headerlink" href="#preference-matrices" title="Permalink to this headline">¶</a></h2>
+<p>Constructs the preference matrix for a permutation.</p>
+<dl class="function">
+<dt id="preferencematrix">
+<code class="descname">preferencematrix</code><span class="sig-paren">(</span><em>P</em><span class="sig-paren">)</span><a class="headerlink" href="#preferencematrix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       P::Array{Int, 1}</span>
+<span class="c">#       - a permutation</span>
+<span class="c"># Return Values:</span>
+<span class="c">#       Q::Array{Int, 2}</span>
+<span class="c">#       - the preference matrix for P</span>
+<span class="c">#       - Q[i,j] = 1 if and only if j precedes i in P</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="kendall-tau-distance">
+<h2>Kendall Tau Distance<a class="headerlink" href="#kendall-tau-distance" title="Permalink to this headline">¶</a></h2>
+<p>Computes the Kendall Tau distance between two permutations using the permutation&#8217;s preference matrices.</p>
+<dl class="function">
+<dt id="kendalldistance">
+<code class="descname">kendalldistance</code><span class="sig-paren">(</span><em>Q1</em>, <em>Q2</em><span class="sig-paren">)</span><a class="headerlink" href="#kendalldistance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       Q1::Array{Int, 2}</span>
+<span class="c">#       - the preference matrix for the first permutation</span>
+<span class="c">#       Q2::Array{Int, 2}</span>
+<span class="c">#       - the preference matrix for the second permutation</span>
+<span class="c"># Return Values:</span>
+<span class="c">#       D::Int</span>
+<span class="c">#       - the Kendall Tau Distance between two permutations</span>
+<span class="c">#       - the the number of pairs (i, j) such that: P1[i] &lt; P1[j] and P2[i] &gt; P2[j]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="mallow-s-distribution">
+<h2>Mallow&#8217;s Distribution<a class="headerlink" href="#mallow-s-distribution" title="Permalink to this headline">¶</a></h2>
+<p>Constructs a Mallow&#8217;s Distribution centered around a specified permutation with a given spreading factor.</p>
+<dl class="function">
+<dt id="mallowsdistribution">
+<code class="descname">mallowsdistribution</code><span class="sig-paren">(</span><em>P</em>, <em>Gamma</em><span class="sig-paren">)</span><a class="headerlink" href="#mallowsdistribution" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       P::Array{Int, 1}</span>
+<span class="c">#       - a permutation</span>
+<span class="c">#       Gamma::Float64</span>
+<span class="c">#       - the spreading factor</span>
+<span class="c"># Return Values:</span>
+<span class="c">#       MD::Array{Float64, 1}</span>
+<span class="c">#       - the mallows distribution with spreading factor Gamma centered at P</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="printing-methods">
+<h2>Printing Methods<a class="headerlink" href="#printing-methods" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="permutation_string">
+<code class="descname">permutation_string</code><span class="sig-paren">(</span><em>Permutation</em><span class="sig-paren">)</span><a class="headerlink" href="#permutation_string" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       Permutation::Array{Int, 1}</span>
+<span class="c">#       - a permutation</span>
+<span class="c"># Return Values:</span>
+<span class="c">#       ST::String</span>
+<span class="c">#       - the string representation of permutation</span>
+</pre></div>
+</div>
+<dl class="function">
+<dt id="partition_strign">
+<code class="descname">partition_strign</code><span class="sig-paren">(</span><em>Partition</em><span class="sig-paren">)</span><a class="headerlink" href="#partition_strign" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       Partition::Array{Int, 1}</span>
+<span class="c">#       - a partition</span>
+<span class="c"># Return Values:</span>
+<span class="c">#       ST::String</span>
+<span class="c">#       - the string representation of partition</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Miscellaneous Functions</a><ul>
+<li><a class="reference internal" href="#partition-construction">Partition Construction</a></li>
+<li><a class="reference internal" href="#preference-matrices">Preference Matrices</a></li>
+<li><a class="reference internal" href="#kendall-tau-distance">Kendall Tau Distance</a></li>
+<li><a class="reference internal" href="#mallow-s-distribution">Mallow&#8217;s Distribution</a></li>
+<li><a class="reference internal" href="#printing-methods">Printing Methods</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="corcon.html"
+                        title="previous chapter">Convolution and Correlation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="mlapplications.html"
+                        title="next chapter">Machine Learning Applications</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/miscellaneous.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="mlapplications.html" title="Machine Learning Applications"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="corcon.html" title="Convolution and Correlation"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">SnFFT 0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Gregory Plumb.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

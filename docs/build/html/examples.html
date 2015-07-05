@@ -1,0 +1,267 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Examples &mdash; SnFFT 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="SnFFT 0.0.1 documentation" href="index.html" />
+    <link rel="next" title="Symmetric Group Functionality" href="groupoperations.html" />
+    <link rel="prev" title="Getting Started" href="starting.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="groupoperations.html" title="Symmetric Group Functionality"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="starting.html" title="Getting Started"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">SnFFT 0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
+<p><em>SnFFT</em> comes with eight example functions that demonstrate some of the key properties of Young&#8217;s Orthogonal Representations and the Fourier Transform of functions over <strong>S</strong><sub>n</sub> .
+Furthermore, they demonstrate the syntax used to call most of the functionality of the package.
+The examples are in the file <a class="reference external" href="https://github.com/GDPlumb/SnFFT.jl/blob/master/src/Examples.jl">Examples.jl</a>.</p>
+<div class="section" id="general-notes">
+<h2>General Notes:<a class="headerlink" href="#general-notes" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Most of the example functions have two methods.  The first method has no parameters and will run the example with default values. The second has a full set of parameters and will be explained in each function&#8217;s description.</li>
+<li>A parameter name will appear in <strong>bold</strong> when it being referenced in the example&#8217;s description.</li>
+<li><em>SnFFT</em> represents a <a class="reference external" href="http://en.wikipedia.org/wiki/Partition_(number_theory)">partition</a> in the following way:</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Let X be a Partition of N</span>
+<span class="c">#       X::Array{Int, 1}</span>
+<span class="c">#       X[i] &gt; 0 for all i</span>
+<span class="c">#       sum(X) == N</span>
+<span class="c">#       X[i] &gt;= X[j] when i &lt; j</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><em>SnFFT</em> represents a <a class="reference external" href="http://en.wikipedia.org/wiki/Permutation">permutation</a> in the following way:</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Let X be a Permutation of N</span>
+<span class="c">#       X::Array{Int, 1}</span>
+<span class="c">#       length(X) == N</span>
+<span class="c">#       X[i] = j indicates that the item in position i is sent to position j</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-function-explanations">
+<h2>Example Function Explanations<a class="headerlink" href="#example-function-explanations" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="example1">
+<code class="descname">example1</code><span class="sig-paren">(</span><em>N</em>, <em>partition</em>, <em>permutation</em><span class="sig-paren">)</span><a class="headerlink" href="#example1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       N::Int</span>
+<span class="c">#       - the problem size</span>
+<span class="c">#       partition::Array{Int, 1}</span>
+<span class="c">#       - a partition of N</span>
+<span class="c">#       permutation::Array{Int, 1}</span>
+<span class="c">#       - a permutation of N</span>
+</pre></div>
+</div>
+<p>This example finds the <a class="reference external" href="http://en.wikipedia.org/wiki/Young_tableau">Standard Tableau</a> corresponding to <strong>partition</strong>.
+It then calculates Young&#8217;s Orthogonal Representation of <strong>permutation</strong> corresponding to <strong>partition</strong>.</p>
+<dl class="function">
+<dt id="example2">
+<code class="descname">example2</code><span class="sig-paren">(</span><em>N</em>, <em>partition</em>, <em>p1</em>, <em>p2</em><span class="sig-paren">)</span><a class="headerlink" href="#example2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       N::Int</span>
+<span class="c">#       - the problem size</span>
+<span class="c">#       partition::Array{Int, 1}</span>
+<span class="c">#       - a partition of N</span>
+<span class="c">#       p1::Array{Int, 1}</span>
+<span class="c">#       - the first permutation of N</span>
+<span class="c">#       p2::Array{Int, 1}</span>
+<span class="c">#       - the second permutation of N</span>
+</pre></div>
+</div>
+<p>Let YOR1 and YOR2 be Young&#8217;s Orthogonal Representations of <strong>p1</strong> and <strong>p2</strong> corresponding to <strong>partition</strong>.
+Let YORm be Young&#8217;s Orthogonal Representations of <strong>p1</strong> x <strong>p2</strong> corresponding to <strong>partition</strong>.
+This example demonstrates that YORm = YOR1 x YOR2.</p>
+<dl class="function">
+<dt id="example3">
+<code class="descname">example3</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#example3" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>This example demonstrates the order of the permutations used by <em>SnFFT</em> to represent a function over <strong>S</strong><sub>n</sub> .
+It has no parameterized version.</p>
+<dl class="function">
+<dt id="example4">
+<code class="descname">example4</code><span class="sig-paren">(</span><em>N</em><span class="sig-paren">)</span><a class="headerlink" href="#example4" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       N::Int</span>
+<span class="c">#       - the problem size</span>
+</pre></div>
+</div>
+<p>This example constructs a random function over <strong>S</strong><sub>n</sub> .
+It then demonstrates how to calculate the (dense) fast Fourier transform and the inverse fast Fourier transform.
+Finally, it shows that this process recovers the original function accurately.</p>
+<dl class="function">
+<dt id="example5">
+<code class="descname">example5</code><span class="sig-paren">(</span><em>N</em>, <em>SC</em><span class="sig-paren">)</span><a class="headerlink" href="#example5" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       N::Int</span>
+<span class="c">#       - the problem size</span>
+<span class="c">#       SC::Float64</span>
+<span class="c">#       - the portion of the function that is zero-valued</span>
+</pre></div>
+</div>
+<p>This example constructs a random sparse function over <strong>S</strong><sub>n</sub>  and converts it to the format used to compute the spare fast Fourier transform.
+Next, it demonstrates how to compute the sparse fast Fourier transform.
+Finally, it shows that this produces the same result as the dense fast Fourier transform.</p>
+<dl class="function">
+<dt id="example6">
+<code class="descname">example6</code><span class="sig-paren">(</span><em>N</em>, <em>permutation</em><span class="sig-paren">)</span><a class="headerlink" href="#example6" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       N::Int</span>
+<span class="c">#       - the problem size</span>
+<span class="c">#       Permutation::Array{Int, 1}</span>
+<span class="c">#       - a permutation of N</span>
+</pre></div>
+</div>
+<p>This example constructs a delta function over <strong>S</strong><sub>n</sub>  that is centered on <strong>permutation</strong>.
+It then calculates the sparse fast Fourier transform of this function.
+Finally, it demonstrates that this produces the same results as computing Young&#8217;s Orthogonal Representation for each partition of <strong>N</strong> corresponding to <strong>permutation</strong>.</p>
+<dl class="function">
+<dt id="example7">
+<code class="descname">example7</code><span class="sig-paren">(</span><em>N</em>, <em>K</em><span class="sig-paren">)</span><a class="headerlink" href="#example7" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       N::Int</span>
+<span class="c">#       - the problem size</span>
+<span class="c">#       K::Int</span>
+<span class="c">#       - the problem is homogenous at N-K</span>
+</pre></div>
+</div>
+<p>This example constructs a random bandlimited function over <strong>S</strong><sub>n</sub> .
+To save space, the bandlimited function is compressed.
+It then constructs the equivalent non-compressed version.
+Next, it demonstrates how to compute the bandlimited fast Fourier transform using the compressed function and take the bandlimited inverse fast Fourier transform.
+Finally, it shows that the dense and bandlimited fast Fourier transforms produce the same result and that the inverse bandlimited fast Fourier transform recovers the original bandlimited function over <strong>S</strong><sub>n</sub> .</p>
+<dl class="function">
+<dt id="example8">
+<code class="descname">example8</code><span class="sig-paren">(</span><em>N</em>, <em>M</em><span class="sig-paren">)</span><a class="headerlink" href="#example8" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Parameters:</span>
+<span class="c">#       N::Int</span>
+<span class="c">#       - the problem size</span>
+<span class="c">#       M::Int</span>
+<span class="c">#       - the number of the top frequencies of the Fourier transform to use</span>
+</pre></div>
+</div>
+<p>This function constructs a random function over <strong>S</strong><sub>n</sub>  and then demonstrates how to compute the paritial inverse fast Fourier transform.
+It prints both the original and recovered function.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Examples</a><ul>
+<li><a class="reference internal" href="#general-notes">General Notes:</a></li>
+<li><a class="reference internal" href="#example-function-explanations">Example Function Explanations</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="starting.html"
+                        title="previous chapter">Getting Started</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="groupoperations.html"
+                        title="next chapter">Symmetric Group Functionality</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/examples.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="groupoperations.html" title="Symmetric Group Functionality"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="starting.html" title="Getting Started"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">SnFFT 0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Gregory Plumb.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>
