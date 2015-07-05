@@ -25,6 +25,7 @@ Out of the box, *SnFFT* implements:
    corcon.rst
    miscellaneous.rst
    mlapplications.rst
+   supplement.rst
 
 Indices and tables
 ==================
