@@ -5,7 +5,8 @@
 #Run:
 #	require("InitialSetUp.jl")
 
-Pkg.clone("git://github.com/GDPlumb/SnFFT.jl")
+Pkg.update()
+Pkg.add("SnFFT")
 using SnFFT
 example1()
 println("")
