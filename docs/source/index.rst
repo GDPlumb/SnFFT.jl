@@ -1,7 +1,7 @@
 SnFFT Package
 ===============
 
-The *SnFFT* package is Julia package designed to facilitate harmonic analyis on the `symmetric group <http://en.wikipedia.org/wiki/Symmetric_group>`_ of order n, denoted |Sn|.   
+The *SnFFT* package is Julia package designed to facilitate harmonic analysis on the `symmetric group <http://en.wikipedia.org/wiki/Symmetric_group>`_ of order n, denoted |Sn|.   
 Out of the box, *SnFFT* implements:
 
 * Group operations and factorizations for |Sn|
