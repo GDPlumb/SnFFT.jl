@@ -19,12 +19,12 @@ function degree(N::Int, P::Array{Int, 1})
 		for n = 21:N
 			NST *= n
 		end
-		NST = int(NST)
+		NST = round(Int,NST)
 		return NST
 	else
 		NST = factorial(N)
 		NST /= hook_product(P)
-		NST = int(NST)
+		NST = round(Int,NST)
 		return NST
 	end
 end

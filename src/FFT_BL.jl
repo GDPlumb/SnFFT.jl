@@ -33,7 +33,7 @@ function sn_fft_bl(N::Int, K::Int, SNF::Array{Float64, 1}, YOR::Array{Array{Arra
 				put!(RR_ZFI[p], ZFI)
 			end
 		end
-		BS = int(length(SNF) / N)
+		BS = round(Int, length(SNF) / N)
 		i = 1
 		nextidx() = (idx = i; i += 1; idx)
 		@sync begin
@@ -145,7 +145,7 @@ function compute_fft_iv(N::Int, V::Float64, YORn::Array{Array{SparseMatrixCSC, 1
 		FFT[p] = full(YORn[p][1])
 	end
 	NZ = Array(Float64, 1, 1)
-	NZ[1,1] = factorial(int128(N)) * V
+	NZ[1,1] = factorial(Int128(N)) * V
 	FFT[NP] = NZ
 	return FFT
 end
@@ -239,7 +239,7 @@ function dsm_bl(Dim::Int, sFFTn::Array{Array{Float64, 2}, 1}, PTnp::Array{Int, 1
 			offset += sDim
 		else
 			FC = sFFTn[index]
-			offset += int(FC[1, 1])
+			offset += round(Int, FC[1, 1])
 		end
 	end
 	return DSM

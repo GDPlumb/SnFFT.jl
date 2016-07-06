@@ -18,7 +18,7 @@
 function sn_ifft_bl(N::Int, K::Int, FFT::Array{Array{Float64, 2}, 1}, YOR::Array{Array{Array{SparseMatrixCSC, 1}, 1}, 1}, PT::Array{Array{Array{Int, 1}, 1}, 1}, ZFI::Array{Int, 1})
 	np = nprocs()
 	if np == 1 || N < 10 || K == 1 || K == 2 && N < 60 || K == 3 && N < 20
-		SNF = Array(Float64, int(factorial(N) / factorial(N - K)))
+		SNF = Array(Float64, round(Int, factorial(N) / factorial(N - K)))
 		compute_ifft_bl(N, K, SNF, FFT, YOR, PT, ZFI, Counter(1))
 		return SNF
 	else
@@ -56,8 +56,8 @@ function sn_ifft_bl(N::Int, K::Int, FFT::Array{Array{Float64, 2}, 1}, YOR::Array
 				end
 			end
 		end
-		SNF = Array(Float64, int(factorial(N) / factorial(N - K)))
-		BS = int(factorial(N - 1) / factorial(N - K))
+		SNF = Array(Float64, round(Int, factorial(N) / factorial(N - K)))
+		BS = round(Int, factorial(N - 1) / factorial(N - K))
 		i = 1
 		for n = 1:N
 			pSNF = pSNFA[n]
@@ -159,7 +159,7 @@ function update_sfft_bl!(N::Int, n::Int, sFFT::Array{Array{Float64, 2}, 1}, FFTp
 			sFFT[index] += (Dim / (sDim * N)) * M[lb:ub, lb:ub]
 			lb += sDim
 		else
-			lb += int(YORd[index][1][1, 1])
+			lb += round(Int, YORd[index][1][1, 1])
 		end
 	end
 end
@@ -184,7 +184,7 @@ end
 #	-SNF::Array{Float64, 1}
 #	- the bandlimited function on the nth left-sided coset of Sn
 function compute_sifft_bl(N::Int, K::Int, n::Int, FFT::Array{Array{Float64, 2}, 1}, YOR::Array{Array{Array{SparseMatrixCSC, 1}, 1}, 1},  PT::Array{Array{Array{Int, 1}, 1}, 1}, ZFI::Array{Int, 1})
-	pSNF = Array(Float64, int(factorial(N - 1) / factorial(N - K)))
+	pSNF = Array(Float64, round(Int, factorial(N - 1) / factorial(N - K)))
 	C = Counter(1)
 	YORn = YOR[N]
 	NPn = length(YORn)

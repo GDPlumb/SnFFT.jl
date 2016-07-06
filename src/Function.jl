@@ -39,7 +39,7 @@ end
 function snf_bl(N::Int, K::Int, PA::Array{Array{Int, 1}, 1}, VA::Array{Float64, 1})
 	N_F = factorial(N)
 	BS = factorial(N - K)
-	SNF = zeros(Float64, int(N_F / BS))
+	SNF = zeros(Float64, round(Int, N_F / BS))
 	for i = 1:length(PA)
 		Permutation = PA[i]
 		Index = permutation_index(P)

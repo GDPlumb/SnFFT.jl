@@ -129,7 +129,7 @@ function example3()
 
 	VA = Array(Float64, 24) #Create the values of the function on Sn
 	for i = 1:24
-		VA[i] = float64(i)
+		VA[i] = Float64(i)
 	end
 
 	SNF = snf(4,PA,VA) #Put the values into the order used to compute the FFT
@@ -147,7 +147,7 @@ function example3()
 	println("Is sorted into this order for SnFFT to use: ")
 	println("Permutation   Function value for that Permutation")
 	for i = 1:24
-		ni = int(SNF[i])
+		ni = round(Int, SNF[i])
 		ST = permutation_string(PA[ni])
 		ST = string(ST, "  ", VA[ni])
 		println(ST)
@@ -312,7 +312,7 @@ end
 #	- the problem is homogenous at N-K
 function example7(N::Int, K::Int)
 
-	blSNF = 2 * rand(int(factorial(N) / factorial(N - K)))
+	blSNF = 2 * rand(round(Int, factorial(N) / factorial(N - K)))
 	nSNF = Array(Float64, factorial(N))
 	index = 1
 	for i = 1:length(blSNF)
@@ -423,13 +423,12 @@ end
 function example_clustering(C::Int,S::Int,F::Float64,N::Int)
 
 	mkdir = "mkdir"
-	Time = TmStruct(time())
-	Modifier = string(Time.year + 1900, "-", Time.month,"-",Time.mday,"T",Time.hour,":",Time.min,":",Time.sec)
-	dir = string("ClusteringExample-",Modifier)
+	Time = now() 
+	dir = string("ClusteringExample-",Time)
 	R = "R"	
 	CMD = "CMD"
 	BATCH = "BATCH"
-	loc = string(homedir(),"/.julia/v0.3/SnFFT/src/sparcl_script.R")
+	loc = string(homedir(),"/.julia/v0.4/SnFFT/src/sparcl_script.R") 
 
 	run(`$mkdir $dir`)
 	cd(dir)
@@ -567,7 +566,7 @@ function kendalldistance(Q1::Array{Int64, 2}, Q2::Array{Int64, 2})
 		end
 	end
 	D /= 2
-	D = int(D)
+	D = round(Int, D)
 	return D
 end
 
@@ -614,7 +613,7 @@ end
 function print_ys(YS::Array{Int, 1})
 	N = length(YS)
 	numRows = maximum(YS)
-	ST = Array(String, numRows)
+	ST = Array(AbstractString, numRows)
 	IA = ones(Int, numRows)
 	for i = 1:numRows
 		ST[i] = ""
